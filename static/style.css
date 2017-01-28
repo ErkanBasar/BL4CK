@@ -38,29 +38,35 @@
 	color: #fff;
 }
 
-.vid-info {
+.channel {
   position: absolute;
-  top: 3%;
+  bottom: 3%;
   left: 3%;
   background: rgba(0,0,0,0.3); color: #fff;
   padding: 1rem;
   font-family: Avenir, Helvetica, sans-serif;
  }
 
-.top-right {
+.bottom-right {
   position: absolute;
-  top: 3%;
+  bottom: 3%;
   right: 3%;
   padding: 1rem;
  }
 
-.circle{
+.randombtn{
   width: 70px;
+  height: 70px;
   border-radius:50px;
   font-size:20px;
-  color: #000;
-  line-height:100px;
   text-align:center;
+  color: #fff;
+  background: #000;
+  border: 2px solid #fff;
+}
+
+.randombtn:hover{
+  color: #000;
   background: #fff;
-  border: 2px solid #000;
+  cursor: pointer;
 }
