@@ -42,16 +42,20 @@
   position: absolute;
   bottom: 3%;
   left: 3%;
-  background: rgba(0,0,0,0.3); color: #fff;
+  background: rgba(0,0,0,0.3);
+  color: #fff;
   padding: 1rem;
   font-family: Avenir, Helvetica, sans-serif;
+ }
+
+ .channel:hover {
+  background: #000;
  }
 
 .bottom-right {
   position: absolute;
   bottom: 3%;
   right: 3%;
-  padding: 1rem;
  }
 
 .randombtn{
