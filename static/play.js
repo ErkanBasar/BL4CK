@@ -19,5 +19,9 @@ $.get(
 
 function randomPick(){
   var initsong = playlist[Math.floor(Math.random() * playlist.length)];
-  document.getElementById('player').src = "https://www.youtube.com/embed/"+initsong+"?controls=1&showinfo=1&rel=1&autoplay=1&loop=1&playlist=" + playlist.join();
+  document.getElementById('fullscreenplayer').src = "https://www.youtube.com/embed/"+initsong+"?controls=1&showinfo=1&rel=1&autoplay=1&loop=1&playlist=" + playlist.join();
+}
+
+
+function playlistinit(playlist) {
 }

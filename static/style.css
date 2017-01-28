@@ -38,7 +38,7 @@
 	color: #fff;
 }
 
-.channel {
+.bottom-left {
   position: absolute;
   bottom: 3%;
   left: 3%;
@@ -48,9 +48,23 @@
   font-family: Avenir, Helvetica, sans-serif;
  }
 
- .channel:hover {
+ .bottom-left:hover {
   background: #000;
  }
+
+.top-left {
+  position: absolute;
+  top: 3%;
+  left: 3%;
+  width: 30%;
+  height: 80vh;
+  overflow: hidden;
+  background: rgba(0,0,0,0.3);
+  color: #fff;
+  padding: 1rem;
+  font-family: Avenir, Helvetica, sans-serif;
+}
+
 
 .bottom-right {
   position: absolute;
