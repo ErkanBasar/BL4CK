@@ -10,8 +10,9 @@
 
     <title>BL4CK</title>
 
-    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <link rel="stylesheet" href="static/style.css" type="text/css" >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="static/hamburger.min.css" type="text/css" >
 
   </head>
 
@@ -26,21 +27,22 @@
     <div id="vidtop-content">
 
         <div class="top-left">
-           <div id="playlist">
-              <iframe src="https://www.youtube.com/embed/hzi8T2aFMls?controls=1&showinfo=1&rel=1&autoplay=0&loop=1&playlist=' + playlist.join();'" frameborder="0" allowfullscreen></iframe>
-              <iframe src="https://www.youtube.com/embed/hzi8T2aFMls?controls=1&showinfo=1&rel=1&autoplay=0&loop=1&playlist=' + playlist.join();'" frameborder="0" allowfullscreen></iframe>
-              <iframe src="https://www.youtube.com/embed/hzi8T2aFMls?controls=1&showinfo=1&rel=1&autoplay=0&loop=1&playlist=' + playlist.join();'" frameborder="0" allowfullscreen></iframe>
-              <iframe src="https://www.youtube.com/embed/hzi8T2aFMls?controls=1&showinfo=1&rel=1&autoplay=0&loop=1&playlist=' + playlist.join();'" frameborder="0" allowfullscreen></iframe>
-              <iframe src="https://www.youtube.com/embed/hzi8T2aFMls?controls=1&showinfo=1&rel=1&autoplay=0&loop=1&playlist=' + playlist.join();'" frameborder="0" allowfullscreen></iframe>
-              <iframe src="https://www.youtube.com/embed/hzi8T2aFMls?controls=1&showinfo=1&rel=1&autoplay=0&loop=1&playlist=' + playlist.join();'" frameborder="0" allowfullscreen></iframe>
-              <iframe src="https://www.youtube.com/embed/hzi8T2aFMls?controls=1&showinfo=1&rel=1&autoplay=0&loop=1&playlist=' + playlist.join();'" frameborder="0" allowfullscreen></iframe>
-              <iframe src="https://www.youtube.com/embed/hzi8T2aFMls?controls=1&showinfo=1&rel=1&autoplay=0&loop=1&playlist=' + playlist.join();'" frameborder="0" allowfullscreen></iframe>
-           </div>
+         
+            <!-- More info on Hamburger: https://jonsuh.com/hamburgers -->
+            <button id='menu-btn' class="hamburger hamburger--squeeze" type="button">
+                <span class="hamburger-box">
+                  <span class="hamburger-inner"></span>
+                </span>
+            </button>
+
+            <div id="playlist" class="responsive-menu"></div>
+
         </div>
 
         <div class="bottom-left">
-           <!--script src="https://apis.google.com/js/platform.js"></script>
-           <div class="g-ytsubscribe" data-channelid="UC6-HobukNrc9ZsLwIzR0SUg" data-layout="full" data-theme="dark" data-count="default"></div-->
+           <!-- TODO: Add the channel info by javascript -->
+           <script src="https://apis.google.com/js/platform.js"></script>
+           <div class="g-ytsubscribe" data-channelid="UC6-HobukNrc9ZsLwIzR0SUg" data-layout="full" data-theme="dark" data-count="default"></div>
         </div>
 
         <div class="bottom-right">
