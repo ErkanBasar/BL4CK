@@ -1,6 +1,6 @@
 
 $(document).ready( function() {
-    $("#playlist").niceScroll({styler:"fb",cursorcolor:"#FFF", cursorwidth: '8', cursorborderradius: '10px', spacebarenabled:false,  cursorborder: '', zindex: '1000'});
+    $("#playlist").niceScroll({styler:"fb", scrollspeed: 150, mousescrollstep: 100, cursorcolor:"#FFF", cursorwidth: '8', cursorborderradius: '5px', spacebarenabled:false, cursorborder: '', zindex: '1000'});
   }
 );
 
