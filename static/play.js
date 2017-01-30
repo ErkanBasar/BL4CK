@@ -1,6 +1,6 @@
 
-//var ytdata;
-var playlist=[],
+var ytdata,
+    playlist=[],
     finallist,
     player,
     time_update_interval = 0;
@@ -12,10 +12,9 @@ $.get(
     maxResults : 20,
     playlistId : 'PL4Xo_npkQSb3Lfa1vW-miGBqBSv6T0Ds3',
     key: 'AIzaSyC8hlhRBGWzLQAqpKK1OvHtsU_eg56bais'},
-    function(ytdata) {
-
-        // add the channel info to the bottom left
-        $("#channel-label").append('<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" data-channelid="'+ ytdata.items[0].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
+    function(data) {
+        ytdata = data;
+        console.log(ytdata);
 
         for (var i = 0; i < ytdata.items.length; i++) {
 
@@ -69,12 +68,26 @@ function onYouTubeIframeAPIReady() {
         },
         events: {
             'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
         }
     });
 }
 
 function onPlayerReady() {
     player.playVideo();
+}
+
+function onPlayerStateChange(event) {
+   if(event.data == -1){
+       var songid = player.getVideoData()['video_id'];
+       console.log(songid);
+       for (var i = 0; i < ytdata.items.length; i++) {
+           if (ytdata.items[i].snippet.resourceId.videoId == songid) {
+                 // change the channel info to the bottom left
+                 document.getElementById("channel-label").innerHTML = '<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" data-channelid="'+ ytdata.items[i].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>'
+           }
+       }//$("#channel-label").append();
+   }
 }
 
 function reorderPlaylist(songid){
