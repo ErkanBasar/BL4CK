@@ -84,9 +84,9 @@ function onPlayerStateChange(event) {
        for (var i = 0; i < ytdata.items.length; i++) {
            if (ytdata.items[i].snippet.resourceId.videoId == songid) {
                  // change the channel info to the bottom left
-                 document.getElementById("channel-label").innerHTML = '<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" data-channelid="'+ ytdata.items[i].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>'
+                 $("#channel-label").html('<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" data-channelid="'+ ytdata.items[i].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
            }
-       }//$("#channel-label").append();
+       }
    }
 }
 
