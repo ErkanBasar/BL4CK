@@ -14,8 +14,8 @@ $.get(
     key: 'AIzaSyC8hlhRBGWzLQAqpKK1OvHtsU_eg56bais'},
     function(ytdata) {
 
-        // add the channel id to the channel label on bottom left
-        document.getElementById("channel-label").setAttribute("data-channelid", ytdata.items[0].snippet.channelId);
+        // add the channel info to the bottom left
+        $("#channel-label").append('<div class="g-ytsubscribe" data-channelid="'+ ytdata.items[0].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
 
         for (var i = 0; i < ytdata.items.length; i++) {
 
