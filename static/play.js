@@ -15,7 +15,7 @@ $.get(
     function(ytdata) {
 
         // add the channel info to the bottom left
-        $("#channel-label").append('<div class="g-ytsubscribe" data-channelid="'+ ytdata.items[0].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
+        $("#channel-label").append('<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" data-channelid="'+ ytdata.items[0].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
 
         for (var i = 0; i < ytdata.items.length; i++) {
 
