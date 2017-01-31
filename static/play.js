@@ -10,13 +10,23 @@ $.get(
     "https://www.googleapis.com/youtube/v3/playlistItems",{
     part : 'snippet',
     maxResults : 20,
-    playlistId : 'PL4Xo_npkQSb3Lfa1vW-miGBqBSv6T0Ds3',
+    playlistId : 'PL4Xo_npkQSb018BBPqOEIPk3yK9-mM6Wn',
     key: 'AIzaSyC8hlhRBGWzLQAqpKK1OvHtsU_eg56bais'},
     function(data) {
         ytdata = data;
 
-        // add the channel info to the bottom left for the first video
-        $("#channel-label").html('<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" data-channelid="'+ ytdata.items[0].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
+        $.get(
+            "https://www.googleapis.com/youtube/v3/videos",{
+            part : 'snippet',
+            id : ytdata.items[0].snippet.resourceId.videoId,
+            key: 'AIzaSyC8hlhRBGWzLQAqpKK1OvHtsU_eg56bais'},
+            function(videodata) {
+                // add the channel info to the bottom left for the first video
+                $("#channel-label").html('<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" data-channelid="'+ videodata.items[0].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
+
+            }
+        );
+
 
         for (var i = 0; i < ytdata.items.length; i++) {
 
@@ -82,13 +92,20 @@ function onPlayerReady() {
 function onPlayerStateChange(event) {
    if(event.data == -1){
        var songid = player.getVideoData()['video_id'];
-       console.log(songid);
-       for (var i = 0; i < ytdata.items.length; i++) {
-           if (ytdata.items[i].snippet.resourceId.videoId == songid) {
-                 // change the channel info to the bottom left
-                 $("#channel-label").html('<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" data-channelid="'+ ytdata.items[i].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
+       $.get(
+           "https://www.googleapis.com/youtube/v3/videos",{
+           part : 'snippet',
+           id : songid,
+           key: 'AIzaSyC8hlhRBGWzLQAqpKK1OvHtsU_eg56bais'},
+           function(videodata) {
+               for (var i = 0; i < ytdata.items.length; i++) {
+                   if (ytdata.items[i].snippet.resourceId.videoId == songid) {
+                         // change the channel info on the bottom left
+                         $("#channel-label").html('<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" data-channelid="'+ videodata.items[0].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
+                   }
+               }
            }
-       }
+       );
    }
 }
 
