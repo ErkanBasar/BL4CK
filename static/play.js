@@ -33,7 +33,9 @@
          key: 'AIzaSyC8hlhRBGWzLQAqpKK1OvHtsU_eg56bais'},
          function(videodata) {
             // update the channel info to the bottom left for the first video
-            $('#channel-label').html('<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" data-channelid="'+ videodata.items[0].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
+            if($("#channel").attr('data-channelid') !== videodata.items[0].snippet.channelId){
+               $('#channel-label').html('<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" id="channel" data-channelid="'+ videodata.items[0].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
+            }
          }
       );
    }
