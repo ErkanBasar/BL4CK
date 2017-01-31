@@ -1,156 +1,154 @@
+//(function functionName(window, document, $, black, undefined) {
 
-var ytdata,
-    playlist=[],
-    finallist,
-    player,
-    time_update_interval = 0;
+   window.black = {};
+   window.black.data = {};
+   window.black.playlist = [];
+   window.black.finallist = [];
+   window.black.player = null;
+   window.black.loop = false;
+   window.black.time_update_interval = 0;
 
-// http://stackoverflow.com/questions/22613903/youtube-api-v3-get-list-of-users-videos
-$.get(
-    "https://www.googleapis.com/youtube/v3/playlistItems",{
-    part : 'snippet',
-    maxResults : 20,
-    playlistId : 'PL4Xo_npkQSb3Lfa1vW-miGBqBSv6T0Ds3',
-    key: 'AIzaSyC8hlhRBGWzLQAqpKK1OvHtsU_eg56bais'},
-    function(data) {
-        ytdata = data;
+   function reorderPlaylist (songid) {
+    var temp_list = window.black.playlist.slice();
+    var frstlst = temp_list.splice(0,window.black.playlist.indexOf(songid));
+    window.black.finallist = temp_list.concat(frstlst);
+   }
 
-        $.get(
-            "https://www.googleapis.com/youtube/v3/videos",{
-            part : 'snippet',
-            id : ytdata.items[0].snippet.resourceId.videoId,
-            key: 'AIzaSyC8hlhRBGWzLQAqpKK1OvHtsU_eg56bais'},
-            function(videodata) {
-                // add the channel info to the bottom left for the first video
-                $("#channel-label").html('<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" data-channelid="'+ videodata.items[0].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
+   function loadYTPlayer () {
+    var tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+   }
 
-            }
-        );
+   function onPlayerReady () {
+    window.black.player.playVideo();
+   }
 
+   function updateChannelInfo (songid) {
+      $.get(
+         'https://www.googleapis.com/youtube/v3/videos',{
+         part : 'snippet',
+         id : songid,
+         key: 'AIzaSyC8hlhRBGWzLQAqpKK1OvHtsU_eg56bais'},
+         function(videodata) {
+            // update the channel info to the bottom left for the first video
+            $('#channel-label').html('<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" data-channelid="'+ videodata.items[0].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
+         }
+      );
+   }
 
-        for (var i = 0; i < ytdata.items.length; i++) {
+   function onPlayerStateChange (event) {
+      if(event.data === 0 || event.data === -1){
+         updateChannelInfo(window.black.player.getVideoData().video_id);
+      }
+   }
+
+   // http://stackoverflow.com/questions/22613903/youtube-api-v3-get-list-of-users-videos
+   $.get(
+      'https://www.googleapis.com/youtube/v3/playlistItems',{
+      part : 'snippet',
+      maxResults : 20,
+      playlistId : 'PL4Xo_npkQSb3Lfa1vW-miGBqBSv6T0Ds3',
+      key: 'AIzaSyC8hlhRBGWzLQAqpKK1OvHtsU_eg56bais'},
+      function(data) {
+         window.black.data = data;
+
+         for (var i = 0; i < window.black.data.items.length; i++) {
+
+            var snippet = window.black.data.items[i].snippet;
+            var thumbnails = window.black.data.items[i].snippet.thumbnails;
+            var thumbnail;
 
             // fill the playlist
-            playlist.push(ytdata.items[i].snippet.resourceId.videoId);
-
-            var videoid = ytdata.items[i].snippet.resourceId.videoId;
-            var title = ytdata.items[i].snippet.title;
+            window.black.playlist.push(snippet.resourceId.videoId);
 
             // get the thumbnail
-            if (ytdata.items[i].snippet.thumbnails.standard) {
-               var thumbnail = ytdata.items[i].snippet.thumbnails.standard.url;
-            }else if (ytdata.items[i].snippet.thumbnails.high) {
-               var thumbnail = ytdata.items[i].snippet.thumbnails.high.url;
-            }else if (ytdata.items[i].snippet.thumbnails.medium) {
-               var thumbnail = ytdata.items[i].snippet.thumbnails.medium.url;
+            if (thumbnails.standard) {
+               thumbnail = thumbnails.standard.url;
+            }else if (thumbnails.high) {
+               thumbnail = thumbnails.high.url;
+            }else if (thumbnails.medium) {
+               thumbnail = thumbnails.medium.url;
             }else {
-               var thumbnail = ytdata.items[i].snippet.thumbnails.default.url;
+               thumbnail = thumbnails.default.url;
             }
 
             // place the videos into the playlist on the left side
-            $("#playlist").append('<div class="hovereffect" id="' + videoid + '"><img class="img-responsive" src="' + thumbnail + '" alt=""><div class="overlay"><h2>' + title + '</h2><p><a href="#"><i class="fa fa-play"></i></a></p></div></div>');
+            $('#playlist').append('<div class="hovereffect playSong" data-videoid="' + snippet.resourceId.videoId + '"><img class="img-responsive" src="' + thumbnail + '" alt=""><div class="overlay"><h2>' + snippet.title + '</h2><p><a href="#"><i class="fa fa-play"></i></a></p></div></div>');
 
-            // set onclick to the videos in playlist
-            $('#'+videoid).click(playSong(videoid));
+         }
 
-        }
+         loadYTPlayer();
 
-        loadYTPlayer();
-    }
-);
+         $('.playSong').click(function (event) {
+            var songid = $(this).data('videoid');
+            reorderPlaylist(songid);
+            window.black.player.loadVideoById(songid);
+            window.black.player.loadPlaylist(window.black.finallist.join());
+            window.black.player.setLoop(true);
+         });
 
-function loadYTPlayer(){
-   var tag = document.createElement('script');
-   tag.src = "https://www.youtube.com/iframe_api";
-   var firstScriptTag = document.getElementsByTagName('script')[0];
-   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-}
+         updateChannelInfo(window.black.data.items[0].snippet.resourceId.videoId);
 
-function onYouTubeIframeAPIReady() {
-    var temp_list = playlist.slice();
-    finallist = temp_list.splice(1);
-    player = new YT.Player('video-placeholder', {
-        videoId: playlist[0],
-        playerVars: {
-            autoplay:1,
-            controls:0,
-            color: 'white',
-            loop:1,
-            playlist: finallist.join()
-        },
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-        }
-    });
-}
+      }
+   );
 
-function onPlayerReady() {
-    player.playVideo();
-}
-
-function onPlayerStateChange(event) {
-   if(event.data == -1){
-       var songid = player.getVideoData()['video_id'];
-       $.get(
-           "https://www.googleapis.com/youtube/v3/videos",{
-           part : 'snippet',
-           id : songid,
-           key: 'AIzaSyC8hlhRBGWzLQAqpKK1OvHtsU_eg56bais'},
-           function(videodata) {
-               for (var i = 0; i < ytdata.items.length; i++) {
-                   if (ytdata.items[i].snippet.resourceId.videoId == songid) {
-                         // change the channel info on the bottom left
-                         $("#channel-label").html('<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" data-channelid="'+ videodata.items[0].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
-                   }
-               }
+   function onYouTubeIframeAPIReady () {
+       var temp_list = window.black.playlist.slice();
+       window.black.finallist = temp_list.splice(1);
+       window.black.player = new YT.Player('video-placeholder', {
+           videoId: window.black.playlist[0],
+           playerVars: {
+               autoplay:1,
+               controls:0,
+               color: 'white',
+               loop:1,
+               playlist: window.black.finallist.join()
+           },
+           events: {
+               'onReady': onPlayerReady,
+               'onStateChange': onPlayerStateChange
            }
-       );
+       });
    }
-}
 
-function reorderPlaylist(songid){
-   var temp_list = playlist.slice();
-   var frstlst = temp_list.splice(0,playlist.indexOf(songid));
-   finallist = temp_list.concat(frstlst);
-}
+   $('.nextSong').click(function (event) {
+      window.black.player.nextVideo();
+   });
 
-function playSong(songid){
-  return function(){
-     reorderPlaylist(songid);
-     player.loadVideoById(songid);
-     player.loadPlaylist(finallist.join());
-     player.setLoop(true);
-  }
-}
+   $('.prevSong').click(function (event) {
+      window.black.player.previousVideo();
+   });
 
-function nextSong() {
-   player.nextVideo();
-}
+   $('.randomSong').click(function (event) {
+      var songid = window.black.playlist[Math.floor(Math.random() * window.black.playlist.length)];
+      reorderPlaylist(songid);
+      window.black.player.loadVideoById(songid);
+      window.black.player.loadPlaylist(window.black.finallist.join());
+      window.black.player.setLoop(true);
+   });
 
-function prevSong() {
-   player.previousVideo();
-}
+   $('.playPauseSong').click(function (event) {
+      if ($(this.firstChild).hasClass('fa-pause')) {
+         window.black.player.pauseVideo();
+         $(this.firstChild).removeClass('fa-pause');
+         $(this.firstChild).addClass('fa-play');
+      }else if ($(this.firstChild).hasClass('fa-play')) {
+         window.black.player.playVideo();
+         $(this.firstChild).removeClass('fa-play');
+         $(this.firstChild).addClass('fa-pause');
+      }
+   });
 
-function randomSong(){
-  var songid = playlist[Math.floor(Math.random() * playlist.length)];
-  reorderPlaylist(songid);
-  player.loadVideoById(songid);
-  player.loadPlaylist(finallist.join());
-  player.setLoop(true);
-}
+   /*$('.loopSong').click(function (event) {
+      if ($(this.firstChild).hasClass('fa-spin')) {
+         window.black.loop = false;
+         $(this.firstChild).removeClass('fa-spin');
+      }else {
+         window.black.loop = true;
+         $(this.firstChild).addClass('fa-spin');
+      }
+   });*/
 
-function playPauseSong(){
-  var ppbtn = document.getElementById("play-pause-btn");
-  if(ppbtn.innerHTML === '<i class="fa fa-pause"></i>'){
-     player.pauseVideo();
-     ppbtn.innerHTML = '<i class="fa fa-play"></i>';
-  }else if (ppbtn.innerHTML === '<i class="fa fa-play"></i>') {
-     player.playVideo();
-     ppbtn.innerHTML = '<i class="fa fa-pause"></i>';
-  }
-}
-
-function loopSong(songid) {
- //TODO: if active; loop the current song, if deactivated; play next song and load the playlist
-}
+//})(window, window.document, window.jQuery, window.black);
