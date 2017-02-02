@@ -8,6 +8,8 @@
    window.black.loop = false;
    window.black.time_update_interval = 0;
 
+   window.black.playlistId = localStorage.getItem("playlistId");
+
    function reorderPlaylist (songid) {
     var temp_list = window.black.playlist.slice();
     var frstlst = temp_list.splice(0,window.black.playlist.indexOf(songid));
@@ -51,7 +53,7 @@
       'https://www.googleapis.com/youtube/v3/playlistItems',{
       part : 'snippet',
       maxResults : 20,
-      playlistId : 'PL4Xo_npkQSb3Lfa1vW-miGBqBSv6T0Ds3',
+      playlistId : window.black.playlistId,
       key: 'AIzaSyC8hlhRBGWzLQAqpKK1OvHtsU_eg56bais'},
       function(data) {
          window.black.data = data;
