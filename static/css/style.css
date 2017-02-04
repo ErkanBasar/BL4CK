@@ -7,11 +7,126 @@ html {
     min-height: 100%;
 }
 
-img {
-   width: 100%;
+.mt {
+	margin-top: 25px;
 }
 
+
 /***************************************************** INDEX.HTML *****************************************************/
+
+.main {
+   background: rgba(0, 0, 0, 0.33);
+   min-height: 95vh;
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+.pn {
+	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.pn:hover {
+	box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
+
+}
+
+/******************************************/
+/* index.html Hover Effect
+/******************************************/
+
+.playlist-panel .hovereffect {
+  width: 100%;
+  height: 100%;
+  float: left;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: default;
+}
+
+.playlist-panel .hovereffect .overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.playlist-panel .hovereffect:hover .overlay {
+  background-color: rgba(170,170,170,0.4);
+}
+
+.playlist-panel .hovereffect h2,
+.playlist-panel .hovereffect img {
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.playlist-panel .hovereffect img {
+  display: block;
+  position: relative;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.playlist-panel .hovereffect:hover img {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.playlist-panel .hovereffect h2 {
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  font-size: 17px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.playlist-panel .hovereffect a.info {
+  display: inline-block;
+  text-decoration: none;
+  padding: 7px 14px;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid #fff;
+  margin: 50px 0 0 0;
+  background-color: transparent;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.5);
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  font-weight: normal;
+  height: 85%;
+  width: 85%;
+  position: absolute;
+  top: -20%;
+  left: 8%;
+  padding: 70px;
+}
+
+.playlist-panel .hovereffect:hover a.info {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  background-color: rgba(0,0,0,0.4);
+  cursor: pointer;
+}
+
+/******************************************/
+/* Carousel
+/******************************************/
 
 .carousel-fade .carousel-inner .item {
     opacity: 0;
@@ -74,12 +189,6 @@ img {
     width: 100%;
     height: 100%;
 }
-
-.playlist-btn {
-   width: 100%;
-   height: 100%;
-}
-
 
 /***************************************************** PLAYER.HTML *****************************************************/
 
@@ -203,10 +312,10 @@ img {
 }
 
 /******************************************/
-/* Hover Effect
+/* Player.html Hover Effect
 /******************************************/
 
-.hovereffect {
+#playlist .hovereffect {
   width: 100%;
   height: 100%;
   margin-bottom: 5px;
@@ -217,7 +326,7 @@ img {
   cursor: pointer;
 }
 
-.hovereffect .overlay {
+#playlist .hovereffect .overlay {
   position: absolute;
   overflow: hidden;
   width: 80%;
@@ -233,7 +342,7 @@ img {
   transform: scale(0,1);
 }
 
-.hovereffect:hover .overlay {
+#playlist .hovereffect:hover .overlay {
   opacity: 1;
   filter: alpha(opacity=100);
   -webkit-transform: scale(1);
@@ -241,7 +350,7 @@ img {
   transform: scale(1);
 }
 
-.hovereffect img {
+#playlist .hovereffect img {
   display: block;
   position: relative;
   -webkit-transition: all 0.35s;
@@ -249,13 +358,13 @@ img {
   width: 100%;
 }
 
-.hovereffect:hover img {
+#playlist .hovereffect:hover img {
   filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="0.6" /><feFuncG type="linear" slope="0.6" /><feFuncB type="linear" slope="0.6" /></feComponentTransfer></filter></svg>#filter');
   filter: brightness(0.6);
   -webkit-filter: brightness(0.6);
 }
 
-.hovereffect h2 {
+#playlist .hovereffect h2 {
   text-transform: uppercase;
   text-align: center;
   position: relative;
@@ -271,7 +380,7 @@ img {
   transform: translate3d(0,-100%,0);
 }
 
-.hovereffect a, hovereffect p {
+#playlist .hovereffect a, #playlist .hovereffect p {
   color: #FFF;
   font-size: 1em;
   padding: 1em 0;
@@ -283,7 +392,7 @@ img {
   transform: translate3d(0,100%,0);
 }
 
-.hovereffect:hover a, .hovereffect:hover p, .hovereffect:hover h2 {
+#playlist .hovereffect:hover a, #playlist .hovereffect:hover p, #playlist .hovereffect:hover h2 {
   opacity: 1;
   filter: alpha(opacity=100);
   -webkit-transform: translate3d(0,0,0);

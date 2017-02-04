@@ -1,10 +1,9 @@
 (function functionName(window, document, $, undefined) {
 
-   $('.carousel').carousel({interval: 10000});
+   $('.carousel').carousel({interval: 15000});
 
    $('.choosePlaylist').click(function (event) {
-      console.log($(this).data('id'));
-      localStorage.setItem("playlistId",$(this).data('id'));
+      window.localStorage.setItem("playlistId",$(this).data('id'));
       window.location.href = "player.html";
    });
 
