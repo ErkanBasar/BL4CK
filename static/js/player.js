@@ -79,7 +79,7 @@
             }
 
             // place the videos into the playlist on the left side
-            $('#playlist').append('<div class="hovereffect playSong" data-videoid="' + snippet.resourceId.videoId + '"><img class="img-responsive" src="' + thumbnail + '" alt=""><div class="overlay"><h2>' + snippet.title + '</h2><p><a href="#"><i class="fa fa-play"></i></a></p></div></div>');
+            $('#playlist').append('<div class="hovereffect playSong" data-videoid="' + snippet.resourceId.videoId + '"><img class="img-responsive" src="' + thumbnail + '" alt=""><div class="overlay"><h2>' + snippet.title + '</h2><p><a href="#"></a></p></div></div>');
 
          }
 
