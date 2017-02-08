@@ -1,35 +1,28 @@
 * {
   box-sizing: border-box;
 }
-
 html {
     position: relative;
     min-height: 100%;
 }
-
 body{
    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
 .mt {
 	margin-top: 25px;
 }
-
 .pn {
 	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
 }
-
 .pn:hover {
 	box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
 }
-
 .main {
    background: rgba(0, 0, 0, 0.33);
    min-height: 95vh;
    margin-top: 20px;
    margin-bottom: 20px;
 }
-
 /******************************************/
 /* Header in Home Page
 /******************************************/
@@ -42,13 +35,13 @@ header {
   min-height: 100vh;
 }
 header .container {
-  padding-top: 90px;
+  padding-top: 5vh;
   padding-bottom: 50px;
 }
 header img {
   display: block;
   margin: 0 auto 20px;
-  max-width: 25% !important;
+  max-height: 30vh !important;
 }
 header .intro-text .name {
   display: block;
@@ -61,7 +54,6 @@ header .intro-text .skills {
   font-size: 1.25em;
   font-weight: 300;
 }
-
 @media (min-width: 768px) {
   header .container {
     padding-top: 90px;
@@ -74,7 +66,6 @@ header .intro-text .skills {
     font-size: 1.75em;
   }
 }
-
 header .btn-outline {
   color: white;
   font-size: 2em;
@@ -83,9 +74,8 @@ header .btn-outline {
   transition: all 0.3s ease-in-out;
   margin-top: 50px;
   width: 90%;
-  padding: 50px;
+  padding: 50px 20px;
 }
-
 header .btn-outline:hover,
 header .btn-outline:focus,
 header .btn-outline:active,
@@ -101,14 +91,12 @@ header .btn-outline.active {
      margin-top: 50px;
    }
 }
-
 @media (max-width: 1010px) {
    header .btn-outline {
      font-size: 1.5em;
      margin-top: 50px;
    }
 }
-
 @media (max-width: 768px) {
    header .btn-outline {
      font-size: 1.3em;
@@ -116,8 +104,6 @@ header .btn-outline.active {
      margin-top: 20px;
    }
 }
-
-
 /******************************************/
 /* Mood Picker
 /******************************************/
@@ -129,7 +115,6 @@ header .btn-outline.active {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
-
 .slide-down {
     top: 110vh !important;
     -webkit-transition: all 0.5s ease;
@@ -137,11 +122,9 @@ header .btn-outline.active {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
-
 .mood-modal {
    top: 110vh;
 }
-
 .mood-modal .modal-content {
   border-radius: 0;
   background-clip: border-box;
@@ -153,7 +136,6 @@ header .btn-outline.active {
   text-align: center;
   background-color: #2b2a2d;
 }
-
 .mood-modal .modal-content h2 {
   margin: 0;
   font-size: 3em;
@@ -165,7 +147,6 @@ header .btn-outline.active {
 .mood-modal .modal-content .item-details {
   margin: 30px 0;
 }
-
 .mood-modal .close-modal {
   position: absolute;
   width: 75px;
@@ -175,11 +156,9 @@ header .btn-outline.active {
   right: 25px;
   cursor: pointer;
 }
-
 .mood-modal .close-modal:hover {
    opacity: 0.8;
 }
-
 .mood-modal .close-modal .lr {
   height: 75px;
   width: 1px;
@@ -192,7 +171,6 @@ header .btn-outline.active {
   /* Safari and Chrome */
   z-index: 1051;
 }
-
 .mood-modal .close-modal .lr .rl {
   height: 75px;
   width: 1px;
@@ -204,13 +182,10 @@ header .btn-outline.active {
   /* Safari and Chrome */
   z-index: 1052;
 }
-
 .mood-modal .modal-backdrop {
   opacity: 0;
   display: none;
 }
-
-
 /******************************************/
 /* Playlist Selection Hover Effect
 /******************************************/
@@ -224,7 +199,6 @@ header .btn-outline.active {
   text-align: center;
   cursor: default;
 }
-
 .playlist-panel .hovereffect .overlay {
   width: 100%;
   height: 100%;
@@ -236,7 +210,6 @@ header .btn-outline.active {
   transition: all 0.4s ease-in-out;
   cursor: pointer;
 }
-
 .playlist-panel .hovereffect h2,
 .playlist-panel .hovereffect img {
   -webkit-transition: all 0.4s ease-in-out;
@@ -468,18 +441,48 @@ header .btn-outline.active {
 /******************************************/
 
 .bottom-left {
-  position: absolute;
-  bottom: 3%;
-  left: 3%;
-  background: rgba(0,0,0,0.3);
-  color: #fff;
-  padding: 1rem;
-  font-family: Avenir, Helvetica, sans-serif;
+   position: absolute;
+   bottom: 3%;
+   left: 3%;
+   color: #fff;
+   background: rgba(0,0,0,0.3);
+   padding: 1rem;
+   font-family: Avenir, Helvetica, sans-serif;
 }
-
 .bottom-left:hover {
   background: #000;
  }
+.top-middle {
+   position: absolute;
+   top: 3%;
+   width: 98%;
+   text-align: center;
+   color: #fff;
+   font-family: Avenir, Helvetica, sans-serif;
+}
+
+.top-middle #song-title {
+   position: relative;
+   z-index: 10000;
+   width: 50%;
+   margin: auto;
+   color: rgba(255, 255, 255, 0.27);
+   background: rgba(0, 0, 0, 0);
+   padding: 1em;
+   -webkit-transition: all 0.5s ease-in-out;
+   -moz-transition: all 0.5s ease-in-out;
+   -o-transition: all 0.5s ease-in-out;
+   transition: all 0.5s ease-in-out;
+}
+
+.top-middle #song-title:hover {
+   color: rgb(255, 255, 255);
+   background: rgba(0, 0, 0, 0.5);
+   -webkit-transition: all 0.5s ease-in-out;
+   -moz-transition: all 0.5s ease-in-out;
+   -o-transition: all 0.5s ease-in-out;
+   transition: all 0.5s ease-in-out;
+}
 
 .top-left {
   width: 90%;
@@ -491,9 +494,11 @@ header .btn-outline.active {
   font-family: Avenir, Helvetica, sans-serif;
 }
 
-#menu-btn{
-  background: rgba(0,0,0,0.3);
-  padding: 1rem;
+.top-left #menu-btn{
+   position: relative;
+   z-index: 10005;
+   background: rgba(0,0,0,0.3);
+   padding: 1rem;
 }
 
 #playlist {

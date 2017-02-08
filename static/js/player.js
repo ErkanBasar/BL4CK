@@ -27,14 +27,17 @@
     window.black.player.playVideo();
    }
 
-   function updateChannelInfo (songid) {
+   function updateSongInfo (songid) {
       $.get(
          'https://www.googleapis.com/youtube/v3/videos',{
          part : 'snippet',
          id : songid,
          key: 'AIzaSyC8hlhRBGWzLQAqpKK1OvHtsU_eg56bais'},
          function(videodata) {
-            // update the channel info to the bottom left for the first video
+
+            $("#song-title").html("Now playing:<br>" + videodata.items[0].snippet.title);
+
+            // update the channel info to the bottom left
             if($("#channel").attr('data-channelid') !== videodata.items[0].snippet.channelId){
                $('#channel-label').html('<script src="https://apis.google.com/js/platform.js"></script><div class="g-ytsubscribe" id="channel" data-channelid="'+ videodata.items[0].snippet.channelId +'" data-layout="full" data-theme="dark" data-count="default"></div>');
             }
@@ -44,7 +47,7 @@
 
    function onPlayerStateChange (event) {
       if(event.data === 0 || event.data === -1){
-         updateChannelInfo(window.black.player.getVideoData().video_id);
+         updateSongInfo(window.black.player.getVideoData().video_id);
       }
    }
 
@@ -93,7 +96,7 @@
             window.black.player.setLoop(true);
          });
 
-         updateChannelInfo(window.black.data.items[0].snippet.resourceId.videoId);
+         updateSongInfo(window.black.data.items[0].snippet.resourceId.videoId);
 
       }
    );
